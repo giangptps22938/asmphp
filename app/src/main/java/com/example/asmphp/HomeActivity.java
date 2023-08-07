@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 
+import com.example.asmphp.adapters.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -23,8 +27,8 @@ public class HomeActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.view_pager);
         mbottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        //khoi tao adapter
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        // Initialize adapter with the context
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, this);
         mViewPager.setAdapter(adapter);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -37,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        mbottomNavigationView.getMenu().findItem(R.id.menu_tab_1).setChecked(true);
+                        //mbottomNavigationView.getMenu().findItem(R.id.menu_tab_1).setChecked(true);
                         break;
                     case 1:
                         mbottomNavigationView.getMenu().findItem(R.id.menu_tab_2).setChecked(true);
@@ -60,16 +64,17 @@ public class HomeActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.menu_tab_1:
                         mViewPager.setCurrentItem(0);
-                        HomeFragment homeFragment = (HomeFragment) mViewPager.getAdapter().instantiateItem(mViewPager, 0);
-                        homeFragment.reloadData();
+                        mbottomNavigationView.getMenu().findItem(R.id.menu_tab_1);
                         break;
 
                     case R.id.menu_tab_2:
-                        mViewPager.setCurrentItem(1);
+                       mViewPager.setCurrentItem(1);
+                        mbottomNavigationView.getMenu().findItem(R.id.menu_tab_2);
                         break;
 
                     case R.id.menu_tab_3:
                         mViewPager.setCurrentItem(2);
+                        mbottomNavigationView.getMenu().findItem(R.id.menu_tab_3);
                         break;
                 }
             }
